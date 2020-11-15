@@ -9,22 +9,89 @@ namespace LanguageFeatures.Controllers
 {
     public class HomeController : Controller
     {
+        bool FilterByPrice(Product prod)
+        {
+            return (prod?.Price ?? 0) >= 0;
+        }
+
+        public IActionResult index2() => View("Index", Product.GetProducts().Select(p => p?.NameBeginsWithS.ToString()));
+
         public IActionResult Index()
         {
+            //---------------------------------------------- Лямбда-выражения 3 ------------------------------------------------
+
+            return View(Product.GetProducts().Select(p => p?.Name));
+
+
+            //---------------------------------------------- Лямбда-выражения 2 ------------------------------------------------
+
+            //Product[] productArray =
+            //{
+            //    new Product { Name = "Kayak", Price = 275M },
+            //    new Product { Name = "LifeJacket", Price = 48.95M },
+            //    new Product { Name = "Soccer Ball", Price = 19.50M },
+            //    new Product { Name = "Corner Flag", Price = 34.95M }
+            //};
+            //Func<Product, bool> nameFilter = delegate (Product prod)
+            //{
+            //    return prod?.Name?[0] == 'S';
+            //};
+            ////decimal priceFilterTotal = productArray.Filter(FilterByPrice).TotalPrices();
+            ////decimal nameFilterTotal = productArray.Filter(nameFilter).TotalPrices();
+            //decimal priceFilterTotal = productArray.Filter(p => (p?.Price ?? 0) >= 20).TotalPrices();
+            //decimal nameFilterTotal = productArray.Filter(p => p?.Name?[0] == 'S').TotalPrices();
+            //return View(new string[]
+            //{
+            //    $"Price Total: {priceFilterTotal:C2}",
+            //    $"Name Total: {nameFilterTotal:C2}"
+            //});
+
+
+            //----------------------------------------------- Лямбда-выражения -------------------------------------------------
+
+            //Product[] productArray =
+            //{
+            //    new Product { Name = "Kayak", Price = 275M },
+            //    new Product { Name = "LifeJacket", Price = 48.95M },
+            //    new Product { Name = "Soccer Ball", Price = 19.50M },
+            //    new Product { Name = "Corner Flag", Price = 34.95M }
+            //};
+            //decimal priceFilterTotal = productArray.FilterByPrice(20).TotalPrices();
+            //decimal nameFilterTotal = productArray.FilterByName('S').TotalPrices();
+            //return View(new string[]
+            //{
+            //    $"Price Total: {priceFilterTotal:C2}",
+            //    $"Name Total: {nameFilterTotal:C2}"
+            //});
+
+
+            //------------------------------------------- Фильтрующие расширения 2 ----------------------------------------------
+
+            //Product[] productArray =
+            //{
+            //    new Product { Name = "Kayak", Price = 275M },
+            //    new Product { Name = "LifeJacket", Price = 48.95M },
+            //    new Product { Name = "Soccer Ball", Price = 19.50M },
+            //    new Product { Name = "Corner Flag", Price = 34.95M }
+            //};
+            //decimal arrayTotal = productArray.FilterByPrice(20).TotalPrices();
+            //return View(new string[] { $"Array Total: {arrayTotal:C2}" });
+
+
             //---------------------------------------------- Методы расширения 2 -------------------------------------------------
 
-            ShoppingCart cart = new ShoppingCart()
-            {
-                Products = Product.GetProducts()
-            };
-            Product[] productArray =
-            {
-                new Product { Name = "Kayak", Price = 275M },
-                new Product { Name = "LifeJacket", Price = 48.95M }
-            };
-            decimal cartTotal = cart.TotalPrices();
-            decimal arrayTotal = productArray.TotalPrices();
-            return View(new string[] { $"Cart Total: {cartTotal:C2}", $"Array Total: {arrayTotal:C2}" });
+            //ShoppingCart cart = new ShoppingCart()
+            //{
+            //    Products = Product.GetProducts()
+            //};
+            //Product[] productArray =
+            //{
+            //    new Product { Name = "Kayak", Price = 275M },
+            //    new Product { Name = "LifeJacket", Price = 48.95M }
+            //};
+            //decimal cartTotal = cart.TotalPrices();
+            //decimal arrayTotal = productArray.TotalPrices();
+            //return View(new string[] { $"Cart Total: {cartTotal:C2}", $"Array Total: {arrayTotal:C2}" });
 
 
             //---------------------------------------------- Методы расширения 1 -------------------------------------------------
