@@ -14,13 +14,36 @@ namespace LanguageFeatures.Controllers
             return (prod?.Price ?? 0) >= 0;
         }
 
+        public async Task<IActionResult> Index3()
+        {
+            long? length = await MyAsyncMethods.GetPageLength();
+            return View("Index", new string[] { $"Length: {length}" });
+        }
+
         public IActionResult index2() => View("Index", Product.GetProducts().Select(p => p?.NameBeginsWithS.ToString()));
 
         public IActionResult Index()
         {
+            // ---------------------------------------------- Получение имён ---------------------------------------------------
+
+            var products = new[]
+            {
+                new Product { Name = "Kayak", Price = 275M },
+                new Product { Name = "LifeJacket", Price = 48.95M },
+                new Product { Name = "Soccer Ball", Price = 19.50M },
+                new Product { Name = "Corner Flag", Price = 34.95M }
+            };
+            return View(products.Select(p => $"{nameof(p.Name)}: {p.Name}, {nameof(p.Price)}: {p.Price:C2}"));
+
+
+            // ------------------------------------------- Асинхронные методы 1 ------------------------------------------------
+
+            //return Content($"{MyAsyncMethods.GetPageLength().Result}");
+
+
             //---------------------------------------------- Лямбда-выражения 3 ------------------------------------------------
 
-            return View(Product.GetProducts().Select(p => p?.Name));
+            //return View(Product.GetProducts().Select(p => p?.Name));
 
 
             //---------------------------------------------- Лямбда-выражения 2 ------------------------------------------------
